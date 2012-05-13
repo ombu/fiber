@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+
+  # Admin email, Server Name (domain name) and any aliases
+  ServerAdmin martin@ombuweb.com
+  ServerName %(site_name)s
+
+  # Index file and Document Root (where the public files are located)
+  DocumentRoot %(path)s/public
+
+  # Custom log file locations
+  ErrorLog  %(path)s/log/apache-error.log
+  CustomLog %(path)s/log/apache-access.log combined
+
+  <Directory />
+    Options Indexes -ExecCGI FollowSymLinks -MultiViews
+    Order allow,deny
+    Allow from all
+  
+    SetEnv APPLICATION_ENV production
+    RailsBaseURI /
+    PassengerResolveSymlinksInDocumentRoot on
+  </Directory>
+
+</VirtualHost>
+# ex:set ft=apache:

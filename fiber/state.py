@@ -9,7 +9,7 @@ from fabric.utils import _AttributeDict
 
 # Read config
 config = ConfigParser.ConfigParser()
-config.read('fiber_config.ini')
+config.read('config.ini')
 
 # AWS Credentials
 os.environ['AWS_ACCESS_KEY_ID'] = config.get('ec2', 'access_key')
