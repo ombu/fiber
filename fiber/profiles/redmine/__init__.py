@@ -19,7 +19,6 @@ def install(server):
     """
 
     # Dependencies
-    sudo('apt-get update')
     sudo('apt-get -y install libapache2-mod-passenger ruby1.8-dev libmagickwand-dev libopenssl-ruby')
     sudo('a2enmod passenger')
     _upgrade_rubygems()

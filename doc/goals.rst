@@ -1,12 +1,17 @@
-================
-Goals
-================
+===============================================
+Commands to be implemented (merge into Roadmap)
+===============================================
 
-Have a 'vakap manifest' command
-================================
+.. _vakap_manifest_command:
 
-.. code-block:: yaml
+``vakap manifest`` command
+==========================
 
+Output the :ref:`vakap_manifest` with sites grouped into hosts:
+
+.. code-block:: sh
+
+    $ vakap manifest
     --- # All hosts
     - host: brando
       type: m1.small
@@ -26,52 +31,15 @@ Have a 'vakap manifest' command
             - DuplicityComponent: 2012-05-10
             - MysqlComponent: 2012-05-11
 
-Other necessary commands
-=========================
+``fiber assert`` command
+========================
 
-**fiber assert**
     Test that every host is set to support sites and their components as listed
-    in a vakap manifest.
+    in a :ref:`vakap_manifest`.
 
-**fiber assert**
-    Test that every host is set to support sites and their components as listed
-    in a vakap manifest.
+``vakap report`` command
+========================
 
 **vakap report**
-    Test that every host is setup and running per a vakap manifest
+    Test that every host is setup and running per a :ref:`vakap_manifest`.
 
-Sample session
-==============
-
-Append site config to rocket's ``manifest.yml``:
-
-.. code-block:: yaml
-
-    --- # A site descriptor
-    name: m.clcc
-    components:
-        - DuplicityComponent:
-            host_string: ombu@pinche:34165
-            site_path: /mnt/main/m.cclc
-        - PostgresComponent:
-            host_string: webuser@db2:34165
-            db_name: cclc
-            db_user: cclc_user
-
-Ensure the infrastructure exists to support the new site and deploy:
-
-.. code-block:: sh
-
-    $ fiber assert
-    Site not found `m.cclc`. Would you like to setup the environment? (Y/n)
-    Y
-    Environment setup. You can now deploy the site.
-
-Create a ``rocket manifest`` for your site, then:
-
-.. code-block:: sh
-
-    $ cd ~/my-sites/my-site
-    $ rocket deploy
-    $ fiber assert
-    OK

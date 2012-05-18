@@ -11,9 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   goals
+   use_cases
    architecture
    roadmap
+   goals
 
 .. Indices and tables
 .. ==================
