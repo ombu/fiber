@@ -19,6 +19,7 @@ def install(server):
     """
 
     # Dependencies
+    sudo('apt-get update')
     sudo('apt-get -y install libapache2-mod-passenger ruby1.8-dev libmagickwand-dev libopenssl-ruby')
     sudo('a2enmod passenger')
     _upgrade_rubygems()
@@ -28,11 +29,11 @@ def install(server):
     run('rm -rf %s && git clone %s %s' % (conf.path, conf.repo, conf.path))
     run('cd %s && git checkout %s' % (conf.path, conf.version))
     upload_template(
-        'fiber/profiles/redmine/templates/redmine/passenger.conf',
+        'fiber/profiles/redmine/templates/passenger.conf',
         '/etc/apache2/mods-available/passenger.conf',
         use_sudo=True)
     upload_template(
-        'fiber/profiles/redmine/templates/redmine/apache_vhost',
+        'fiber/profiles/redmine/templates/apache_vhost',
         '/etc/apache2/sites-available/redmine',
         context=conf,
         use_sudo=True)

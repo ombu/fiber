@@ -16,11 +16,11 @@ def check_instance_state(instance, wait=10):
     """
     instance_state = instance.state
     while (instance_state != 'running'):
+        print "Instance state %s. Waiting %s seconds." % (instance_state,
+                wait)
         time.sleep(wait)
         instance.update()
         instance_state = instance.state
-        print "Instance state %s. Waiting %s seconds." % (instance_state,
-                wait)
     return instance.id
 
 def check_connectivity(wait=10):
@@ -51,4 +51,5 @@ def launch():
     check_instance_state(instance)
     env.host_string = env.user + '@' + instance.dns_name + ':' + env.port
     check_connectivity()
+    print "ssh -p %s %s@%s" % (env.port, env.user, instance.ip_address)
     return instance

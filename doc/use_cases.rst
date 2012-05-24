@@ -32,23 +32,11 @@ Configure ``fiber`` and launch the server
  
 .. code-block:: python
 
-    import ConfigParser
-    from fiber.api import env, launch
     from fiber import profiles
     import fiber.profiles.redmine
+    from fiber.api import launch
 
-    # Read config
-    config = ConfigParser.ConfigParser()
-    config.read('config.ini')
-
-    # Fab & server setup
-    env.use_ssh_config = True
-    env.forward_agent = True
-    env.key_filename = config.get('ec2', 'key_filename')
-    env.user = config.get('ec2', 'user');
-    env.host_webserver_user = config.get('ec2', 'webserver_user')
-    env.port = config.get('ec2', 'port')
-
+    fiber.bootstrap()
     server = launch()
     profiles.redmine.install(server)
 
