@@ -2,7 +2,7 @@
 EC2 Instance tasks
 """
 import time
-from fabric.api import run, hide, env
+from fabric.api import run, hide, env, sudo
 from fabric.exceptions import NetworkError
 import boto.ec2
 
@@ -51,5 +51,12 @@ def launch():
     check_instance_state(instance)
     env.host_string = env.user + '@' + instance.dns_name + ':' + env.port
     check_connectivity()
+    # Temp fix for now kowing the mysql root pw for `ami-5b64361e`. Can remove
+    # when we start using another ami.
+    _reset_mysql_pw()
     print "ssh -p %s %s@%s" % (env.port, env.user, instance.ip_address)
     return instance
+
+def _reset_mysql_pw():
+    sudo("rm -rf /var/lib/mysql && mysql_install_db && service mysql restart " +
+            "&& mysqladmin -u root password '5TtEEjRK6CH~NMJu'")
