@@ -36,7 +36,7 @@ def check_connectivity(wait=10):
         time.sleep(wait)
         check_connectivity()
 
-def launch():
+def launch(tag_name):
     conn = boto.ec2.regions()[int(_ec2.region)].connect()
 
     res = conn.run_instances(
@@ -47,7 +47,7 @@ def launch():
         )
 
     instance = res.instances[0]
-    instance.add_tag('Name', _ec2.tag_name)
+    instance.add_tag('Name', tag_name)
     check_instance_state(instance)
     env.host_string = env.user + '@' + instance.dns_name + ':' + env.port
     check_connectivity()

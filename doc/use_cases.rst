@@ -19,7 +19,6 @@ Configure ``fiber`` and launch the server
     key_filename = /path/to/your/ssh/my_key
     ami_id = ami-XYZ
     instance_type = t1.micro
-    tag_name = Foo
     api_wait = 10
     ; int. see boto.ec2.regions
     region = 5
@@ -37,8 +36,10 @@ Configure ``fiber`` and launch the server
     from fiber.api import launch
 
     fiber.bootstrap()
-    server = launch()
+    server = launch('my-instance')
     profiles.redmine.install(server)
+    OR
+    profiles.drupal.install(server)
 
 Create a :ref:`rocket_profile` and deploy the site
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
