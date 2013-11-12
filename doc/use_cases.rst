@@ -8,51 +8,53 @@ Deploy a Redmine site on a new server
 Launch a server with the Redmine profile
 ----------------------------------------
 
-Configure ``fiber`` and launch the server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configure ``fiber`` in config.ini
 
-.. code-block:: ini
+.. include:: fiber_config_ini.rst
 
-    [ec2]
-    access_key = SETME
-    secret_key = SETME
-    key_filename = /path/to/your/ssh/my_key
-    ami_id = ami-XYZ
-    instance_type = t1.micro
-    api_wait = 10
-    ; int. see boto.ec2.regions
-    region = 5
-    ; redundant. needs to be removed
-    key_name = my_key
-    security_groups = webserver
-    user = ombu
-    webserver_user = www-data
-    port = 4321
- 
-.. code-block:: python
-
-    from fiber import profiles
-    import fiber.profiles.redmine
-    from fiber.api import launch
-
-    fiber.bootstrap()
-    server = launch('my-instance')
-    profiles.redmine.install(server)
-    OR
-    profiles.drupal.install(server)
-
-Create a :ref:`rocket_profile` and deploy the site
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Launch the server
 
 .. code-block:: sh
 
-    $ cd ~/my-redmine-site-repo
+    $ fiber launch --name redmine --instance-type t1.micro
+
+The name will be the Puppet manifest to launch. It will also be use to set
+the AWS Name tag.
+
+Add the site to the :ref:`fiber_manifest`
+-----------------------------------------
+
+.. code-block:: yaml
+   :emphasize-lines: 3-12
+
+    sites:
+    ...
+    - name: tickets.ombuweb.com
+      components:
+      - type: MysqlComponent,
+        host_string: pepe
+        db_name: tickets
+        db_user: tickets
+        db_pw: secret
+      - type: FileComponent,
+        host_string: pepe
+        site_path: /mnt/uploads
+
+Deploy the site
+---------------
+
+.. todo::
+    Add sample ``fabfile``
+
+.. code-block:: sh
+
+    $ cd ~/my-redmine-site
     $ fab deploy
 
 Deploy a new site on an existing server
 =======================================
 
-Append site config to the :ref:`vakap_manifest`:
+Add the to the :ref:`fiber_manifest`:
 
 .. include:: vakap_manifest_snippet.rst
 
@@ -77,33 +79,13 @@ Create a ``rocket manifest`` for your site, then:
 Deploy a Python Webapp server
 =============================
 
-Configure ``fiber`` and launch the server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configure ``fiber`` in config.ini
 
-.. code-block:: ini
+.. include:: fiber_config_ini.rst
 
-    [ec2]
-    access_key = SETME
-    secret_key = SETME
-    key_filename = /path/to/your/ssh/my_key
-    ami_id = ami-XYZ
-    instance_type = t1.micro
-    api_wait = 10
-    ; int. see boto.ec2.regions
-    region = 5
-    ; redundant. needs to be removed
-    key_name = my_key
-    security_groups = webserver
-    user = ombu
-    webserver_user = www-data
-    port = 4321
- 
-.. code-block:: python
+Launch the server
 
-    from fiber import profiles
-    import fiber.profiles.python
-    from fiber.api import launch
+.. code-block:: sh
 
-    fiber.bootstrap()
-    server = launch('my-instance')
-    profiles.python.install(server)
+    $ fiber launch --name django --instance-type m1.small
+

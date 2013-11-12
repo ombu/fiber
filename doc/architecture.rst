@@ -3,12 +3,13 @@ Architecture
 ============
 
 - :doc:`fiber` 
-    Builds and maintains your infrastructure
+    Launches servers. This is where the Puppet manifests, and infrastructure
+    manifest live.
 
 - :doc:`rocket`
-    Deploys your sites
+    Deploys your sites. This is currently known as `butter`.
 
 - :doc:`vakap`
-    Maintains your deployed sites
+    Backs up sites.
 
 .. note:: fiber ♥ rocket ♥ vakap

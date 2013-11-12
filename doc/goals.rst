@@ -2,16 +2,16 @@
 Commands to be implemented (merge into Roadmap)
 ===============================================
 
-.. _vakap_manifest_command:
+.. _fiber_manifest_command:
 
-``vakap manifest`` command
+``fiber manifest`` command
 ==========================
 
-Output the :ref:`vakap_manifest` with sites grouped into hosts:
+Output the :ref:`fiber_manifest` with sites grouped into hosts:
 
 .. code-block:: sh
 
-    $ vakap manifest
+    $ fiber manifest
     --- # All hosts
     - host: brando
       type: m1.small
@@ -34,12 +34,11 @@ Output the :ref:`vakap_manifest` with sites grouped into hosts:
 ``fiber assert`` command
 ========================
 
-    Test that every host is set to support sites and their components as listed
-    in a :ref:`vakap_manifest`.
+Test that every host is set to support sites and their components as listed
+in a :ref:`fiber_manifest`.
 
 ``vakap report`` command
 ========================
 
-**vakap report**
-    Test that every host is setup and running per a :ref:`vakap_manifest`.
+Test that every host is setup and running per a :ref:`fiber_manifest`.
 
