@@ -73,3 +73,37 @@ Create a ``rocket manifest`` for your site, then:
     $ rocket deploy
     $ fiber assert
     OK
+
+Deploy a Python Webapp server
+=============================
+
+Configure ``fiber`` and launch the server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: ini
+
+    [ec2]
+    access_key = SETME
+    secret_key = SETME
+    key_filename = /path/to/your/ssh/my_key
+    ami_id = ami-XYZ
+    instance_type = t1.micro
+    api_wait = 10
+    ; int. see boto.ec2.regions
+    region = 5
+    ; redundant. needs to be removed
+    key_name = my_key
+    security_groups = webserver
+    user = ombu
+    webserver_user = www-data
+    port = 4321
+ 
+.. code-block:: python
+
+    from fiber import profiles
+    import fiber.profiles.python
+    from fiber.api import launch
+
+    fiber.bootstrap()
+    server = launch('my-instance')
+    profiles.python.install(server)
